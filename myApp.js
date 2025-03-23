@@ -28,16 +28,24 @@ const createAndSavePerson = (done) => {
   person.save(function(err, data) {
     if (err) {
       console.error('Error saving Person: ', err);
-      done(err, null);
+      return done(err, null);
     } else {
-      console.log('Successfully saved Person: ', person);
-      done(null, person);
+      console.log('Successfully saved Person: ', data);
+      return done(null, data);
     }
   });
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+  Person.create(arrayOfPeople, function(err, data) {
+    if (err) {
+      console.error('Error creating many people: ', err);
+      return done(err, null);
+    } else {
+      console.log('Successfully created many people: ', data);
+      return done(null, data);
+    }
+  });
 };
 
 const findPeopleByName = (personName, done) => {
